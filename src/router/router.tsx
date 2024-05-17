@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { Header } from '@/components/header'
 import LoginPage from '@/pages/login-page/login-page'
 
 const publicRouters: RouteObject[] = [
@@ -49,7 +50,7 @@ export const AppRouter = () => {
 function Layout() {
   return (
     <>
-      <h4>Header</h4>
+      <Header />
       <Outlet />
     </>
   )
