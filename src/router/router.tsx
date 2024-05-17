@@ -6,9 +6,11 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import LoginPage from '@/pages/login-page/login-page'
+
 const publicRouters: RouteObject[] = [
   {
-    element: <h1>login</h1>,
+    element: <LoginPage />,
     path: '/login',
   },
   {
