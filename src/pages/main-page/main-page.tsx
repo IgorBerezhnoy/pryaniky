@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { Page } from '@/components/page'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/table'
 import { tableHeader } from '@/constatns/tableHeader'
-import { API_GET_TABLE, RootObResponseTypeTable, TableItem } from '@/service/api'
+import { API_GET_TABLE } from '@/service/api'
+import { RootObResponseTypeTable, TableItem } from '@/service/types'
 import { getCookie } from '@/utils'
 
 export const MainPage = () => {

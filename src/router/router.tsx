@@ -6,28 +6,26 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { MainHeader } from '@/components/header/mainHeader'
+import { MainHeaderContainer } from '@/components/header/mainHeaderContainer'
 import { LoginPage } from '@/pages/login-page'
 import { MainPage } from '@/pages/main-page'
+import { urlPaths } from '@/router/urlPaths'
+import { getCookie } from '@/utils'
 
 const publicRouters: RouteObject[] = [
   {
     element: <LoginPage />,
-    path: '/login',
-  },
-  {
-    element: <h1>sing-up</h1>,
-    path: '/sing-up',
+    path: urlPaths.login,
   },
   {
     element: <h1>error</h1>,
-    path: '*',
+    path: urlPaths.error,
   },
 ]
 const privateRoutes: RouteObject[] = [
   {
     element: <MainPage />,
-    path: '/',
+    path: urlPaths.root,
   },
 ]
 
@@ -51,15 +49,14 @@ export const AppRouter = () => {
 function Layout() {
   return (
     <>
-      <MainHeader />
+      <MainHeaderContainer />
       <Outlet />
     </>
   )
 }
 
 function PrivateAppRoutes() {
-  const isAuthenticated = true
-  //TODO написать логику
+  const isAuthenticated = !!getCookie('token')
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={urlPaths.login} />
 }

@@ -5,7 +5,9 @@ td {
   border: 1px solid black;
 }
 
-.tableCell {
+.tableCell,
+.headCell {
+  padding: 6px 10px;
   text-align: center;
   vertical-align: middle;
 }
