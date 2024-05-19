@@ -1,42 +1,47 @@
-import { Button, Stack, TextField } from '@mui/material'
+import { useForm } from 'react-hook-form'
+
+import { Card } from '@/components/card'
+import { ControlledTextField } from '@/components/controlled-textField'
+import { Page } from '@/components/page'
+import { LoginPageData, schemaLoginPageData } from '@/utils/validators'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './login-page.module.scss'
 
-import { Card } from '../../components/card'
+export const LoginPage = () => {
+  const { control, handleSubmit } = useForm<LoginPageData>({
+    resolver: zodResolver(schemaLoginPageData),
+  })
+  const signInHandler = handleSubmit((data: LoginPageData) => {
+    debugger
+    console.log(data)
+  })
 
-const LoginPage = () => {
   return (
-    <Card className={s.wrapper}>
-      <h1>Sign In</h1>
-      <Stack
-        autoComplete={'off'}
-        component={'form'}
-        noValidate
-        spacing={6}
-        sx={{
-          '& .MuiTextField-root': { mt: 2, width: '100%' },
-        }}
-      >
-        <TextField
-          className={s.textField}
-          label={'Email'}
-          margin={'normal'}
-          placeholder={'Email'}
-          type={'email'}
-          variant={'standard'}
-        />
-        <TextField
-          className={s.textField}
-          label={'Password'}
-          margin={'normal'}
-          placeholder={'Password'}
-          type={'password'}
-          variant={'standard'}
-        />
-        <Button variant={'outlined'}>Login</Button>
-      </Stack>
-    </Card>
+    <Page>
+      <Card className={s.wrapper}>
+        <form className={s.form} onSubmit={signInHandler}>
+          <h1>Sign In</h1>
+
+          <ControlledTextField
+            classNameWrapper={s.textField}
+            control={control}
+            label={'Login'}
+            name={'login'}
+            placeholder={'Login'}
+          />
+          <ControlledTextField
+            autoComplete={'cc-csc'}
+            classNameWrapper={s.textField}
+            control={control}
+            label={'Password'}
+            name={'password'}
+            placeholder={'password'}
+            type={'password'}
+          />
+          <button>Login</button>
+        </form>
+      </Card>
+    </Page>
   )
 }
-
-export default LoginPage

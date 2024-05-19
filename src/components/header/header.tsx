@@ -1,17 +1,17 @@
-import { Logo } from '@/assets/image/logo'
-import { AppBar, Button, Toolbar } from '@mui/material'
+import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react'
+
+import { clsx } from 'clsx'
 
 import s from './header.module.scss'
 
-export const Header = () => {
+export const Header = ({ children, className, ...rest }: Props) => {
   return (
-    <AppBar className={s.appBar} color={'default'} position={'static'}>
-      <Toolbar className={s.tolBar}>
-        <Logo className={s.logo} />
-        <Button color={'inherit'} variant={'outlined'}>
-          Logout
-        </Button>
-      </Toolbar>
-    </AppBar>
+    <header className={clsx(s.header, className)} {...rest}>
+      {children}
+    </header>
   )
+}
+
+interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement> {
+  children: ReactNode
 }
