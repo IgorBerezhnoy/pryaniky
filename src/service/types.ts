@@ -9,7 +9,7 @@ type ResponseTypeLoginData = {
   token: string
 }
 export type ResponseTypeLogin = ResponseTypeT<ResponseTypeLoginData>
-export type RootObResponseTypeTable = ResponseTypeT<TableItem[]>
+export type ResponseTypeTable = ResponseTypeT<TableItem[]>
 export type TableItem = {
   companySigDate: string
   companySignatureName: string
