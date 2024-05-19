@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form'
 
+import { Button } from '@/components/button'
 import { Card } from '@/components/card'
 import { ControlledTextField } from '@/components/controlled-textField'
 import { Page } from '@/components/page'
@@ -13,7 +14,6 @@ export const LoginPage = () => {
     resolver: zodResolver(schemaLoginPageData),
   })
   const signInHandler = handleSubmit((data: LoginPageData) => {
-    debugger
     console.log(data)
   })
 
@@ -21,7 +21,7 @@ export const LoginPage = () => {
     <Page>
       <Card className={s.wrapper}>
         <form className={s.form} onSubmit={signInHandler}>
-          <h1>Sign In</h1>
+          <h1 className={s.title}>Sign In</h1>
 
           <ControlledTextField
             classNameWrapper={s.textField}
@@ -39,7 +39,9 @@ export const LoginPage = () => {
             placeholder={'password'}
             type={'password'}
           />
-          <button>Login</button>
+          <Button className={s.button} fullWidth>
+            Login
+          </Button>
         </form>
       </Card>
     </Page>
