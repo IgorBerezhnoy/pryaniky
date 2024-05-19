@@ -6,8 +6,8 @@ import { Button } from '@/components/button'
 import { Card } from '@/components/card'
 import { ControlledTextField } from '@/components/controlled-textField'
 import { Page } from '@/components/page'
-import { API_AUTH } from '@/service/api'
-import { setCookie } from '@/utils/cookie'
+import { API_AUTH, ResponseTypeLogin } from '@/service/api'
+import { setCookie } from '@/utils/setCookies'
 import { LoginPageData, schemaLoginPageData } from '@/utils/validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -30,10 +30,8 @@ export const LoginPage = () => {
       .then(res => {
         return res.json()
       })
-      .then(res => {
-        const data = res.data as { token: string }
-
-        setCookie('token', data.token, 365)
+      .then((res: ResponseTypeLogin) => {
+        setCookie('token', res.data.token, 365)
 
         setIsLogined(true)
       })

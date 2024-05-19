@@ -7,11 +7,15 @@ export function setCookie(name: string, value: string, days: number) {
   document.cookie = name + '=' + value + ';' + expires + ';path=/'
 }
 
-export function getCookie(name: string) {
+export function getCookie(name: string): string {
   const value = '; ' + document.cookie
   const parts: string[] = value.split('; ' + name + '=')
 
   if (parts.length === 2) {
-    return parts.pop()?.split(';').shift()
+    const cookie = parts.pop()?.split(';').shift()
+
+    return cookie ?? ''
   }
+
+  return ''
 }

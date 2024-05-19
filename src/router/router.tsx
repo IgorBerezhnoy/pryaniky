@@ -8,6 +8,7 @@ import {
 
 import { MainHeader } from '@/components/header/mainHeader'
 import { LoginPage } from '@/pages/login-page'
+import { MainPage } from '@/pages/main-page'
 
 const publicRouters: RouteObject[] = [
   {
@@ -25,7 +26,7 @@ const publicRouters: RouteObject[] = [
 ]
 const privateRoutes: RouteObject[] = [
   {
-    element: <h1>Main page</h1>,
+    element: <MainPage />,
     path: '/',
   },
 ]
