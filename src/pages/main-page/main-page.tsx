@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
 
 import { Page } from '@/components/page'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/table'
 import { tableHeader } from '@/constatns/tableHeader'
+import { selectAuth } from '@/features/auth/authSlice'
+import { urlPaths } from '@/router/urlPaths'
 import { API_GET_TABLE } from '@/service/api'
 import { RootObResponseTypeTable, TableItem } from '@/service/types'
 import { getCookie } from '@/utils'
 
 export const MainPage = () => {
   const [data, setData] = useState<TableItem[]>([])
+  const isAuth = useSelector(selectAuth).isAuth
 
   useEffect(() => {
     fetch(API_GET_TABLE, {
@@ -22,6 +27,9 @@ export const MainPage = () => {
         setData(res.data)
       })
   }, [])
+  if (!isAuth) {
+    return <Navigate to={urlPaths.login} />
+  }
 
   return (
     <Page>

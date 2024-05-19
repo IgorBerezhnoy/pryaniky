@@ -1,3 +1,4 @@
+import { RootState } from '@/app/store/store'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState: AuthState = {
@@ -17,6 +18,10 @@ export const authSlice = createSlice({
     },
   },
 })
+export const { setAuth, setError } = authSlice.actions
+export const selectAuth = (state: RootState) => state.auth
+export default authSlice.reducer
+
 export type AuthState = {
   error: null | string
   isAuth: boolean

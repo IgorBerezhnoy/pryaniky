@@ -7,6 +7,8 @@ import {
 } from 'react-router-dom'
 
 import { MainHeaderContainer } from '@/components/header/mainHeaderContainer'
+import { setAuth } from '@/features/auth/authSlice'
+import { useAppDispatch } from '@/hooks/use-appDispatch'
 import { LoginPage } from '@/pages/login-page'
 import { MainPage } from '@/pages/main-page'
 import { urlPaths } from '@/router/urlPaths'
@@ -57,6 +59,9 @@ function Layout() {
 
 function PrivateAppRoutes() {
   const isAuthenticated = !!getCookie('token')
+  const dispatch = useAppDispatch()
+
+  dispatch(setAuth(isAuthenticated))
 
   return isAuthenticated ? <Outlet /> : <Navigate to={urlPaths.login} />
 }

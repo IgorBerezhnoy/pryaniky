@@ -1,11 +1,20 @@
+import { useSelector } from 'react-redux'
+
 import { MainHeader } from '@/components/header/mainHeader'
-import { deleteCookie, getCookie } from '@/utils'
+import { selectAppLoading } from '@/features/app/appSlice'
+import { selectAuth, setAuth } from '@/features/auth/authSlice'
+import { useAppDispatch } from '@/hooks/use-appDispatch'
+import { deleteCookie } from '@/utils'
 
 export const MainHeaderContainer = () => {
-  const isAuth = !!getCookie('token')
+  const dispatch = useAppDispatch()
+  const isLoading = useSelector(selectAppLoading)
+  const isAuth = useSelector(selectAuth).isAuth
   const logOutHandler = () => {
     deleteCookie('token')
+
+    dispatch(setAuth(false))
   }
 
-  return <MainHeader isAuth={isAuth} logOutHandler={logOutHandler} />
+  return <MainHeader isAuth={isAuth} isLoading={isLoading} logOutHandler={logOutHandler} />
 }
