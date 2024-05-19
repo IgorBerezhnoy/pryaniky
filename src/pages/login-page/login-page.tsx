@@ -1,51 +1,29 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
 import { Button } from '@/components/button'
 import { Card } from '@/components/card'
 import { ControlledTextField } from '@/components/controlled-textField'
 import { Page } from '@/components/page'
-import { API_AUTH } from '@/service/api'
-import { ResponseTypeLogin } from '@/service/types'
-import { setCookie } from '@/utils/setCookies'
+import { selectAuthIsAuth, signInAsync } from '@/features/auth/authSlice'
+import { useAppDispatch } from '@/hooks/use-appDispatch'
 import { LoginPageData, schemaLoginPageData } from '@/utils/validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './login-page.module.scss'
 
 export const LoginPage = () => {
-  const [isLogined, setIsLogined] = useState(false)
   const { control, handleSubmit } = useForm<LoginPageData>({
     resolver: zodResolver(schemaLoginPageData),
   })
-
+  const isAuth = useSelector(selectAuthIsAuth)
+  const dispatch = useAppDispatch()
   const signInHandler = handleSubmit((data: LoginPageData) => {
-    fetch(API_AUTH, {
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
-      .then(res => {
-        return res.json()
-      })
-      .then((res: ResponseTypeLogin) => {
-        setCookie('token', res.data.token, 365)
-
-        setIsLogined(true)
-      })
-    // .then(() => {
-    //   fetch(API_GET_TABLE, {
-    //     headers: {
-    //       'x-auth': getCookie('token'),
-    //     },
-    //   }).then(console.log)
-    // })
+    dispatch(signInAsync(data))
   })
 
-  if (isLogined) {
+  if (isAuth) {
     return <Navigate to={'/'} />
   }
 

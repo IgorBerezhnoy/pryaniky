@@ -7,6 +7,7 @@ import { tableHeader } from '@/constatns/tableHeader'
 import { selectAuth } from '@/features/auth/authSlice'
 import { urlPaths } from '@/router/urlPaths'
 import { useGetCompanyTableQuery } from '@/service/tableCompanyApi'
+import { formatDate } from '@/utils'
 
 export const MainPage = () => {
   const isAuth = useSelector(selectAuth).isAuth
@@ -16,9 +17,18 @@ export const MainPage = () => {
   if (!isAuth) {
     return <Navigate to={urlPaths.login} />
   }
+  const onSubmit = (e: any) => {
+    e.preventDefault()
+    console.log()
+  }
 
   return (
     <Page>
+      <h1>Main Page</h1>
+      <form onSubmit={onSubmit}>
+        <input type={'text'} />
+        <input type={'submit'} />
+      </form>
       {isLoading && <h1>Loading...</h1>}
       {data && (
         <Table>
@@ -27,13 +37,13 @@ export const MainPage = () => {
             {data.data.map(el => {
               return (
                 <TableRow key={el.id}>
-                  <TableCell>{el.companySigDate}</TableCell>
+                  <TableCell>{formatDate(el.companySigDate)}</TableCell>
                   <TableCell>{el.companySignatureName}</TableCell>
                   <TableCell>{el.documentName}</TableCell>
                   <TableCell>{el.documentStatus}</TableCell>
                   <TableCell>{el.documentType}</TableCell>
                   <TableCell>{el.employeeNumber}</TableCell>
-                  <TableCell>{el.employeeSigDate}</TableCell>
+                  <TableCell>{formatDate(el.employeeSigDate)}</TableCell>
                   <TableCell>{el.employeeSignatureName}</TableCell>
                   <TableCell>icons</TableCell>
                 </TableRow>
