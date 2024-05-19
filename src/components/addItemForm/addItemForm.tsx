@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/button'
@@ -10,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from '@/pages/main-page/main-page.module.scss'
 
-export const AddItemForm = () => {
+export const AddItemForm = memo(() => {
   const [createItem, {}] = useCreateItemInTableMutation()
 
   const { control, handleSubmit } = useForm<CreateCompanyItemType>({
@@ -50,4 +51,4 @@ export const AddItemForm = () => {
       </Table>
     </form>
   )
-}
+})

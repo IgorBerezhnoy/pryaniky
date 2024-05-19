@@ -9,14 +9,14 @@ import {
 import { MainHeaderContainer } from '@/components/header/mainHeaderContainer'
 import { setAuth } from '@/features/auth/authSlice'
 import { useAppDispatch } from '@/hooks/use-appDispatch'
-import { LoginPage } from '@/pages/login-page'
-import { MainPage } from '@/pages/main-page'
+import { LoginPageContainer } from '@/pages/login-page/login-page-container'
+import { MainPageContainer } from '@/pages/main-page/main-page-container'
 import { urlPaths } from '@/router/urlPaths'
 import { getCookie } from '@/utils'
 
 const publicRouters: RouteObject[] = [
   {
-    element: <LoginPage />,
+    element: <LoginPageContainer />,
     path: urlPaths.login,
   },
   {
@@ -26,7 +26,7 @@ const publicRouters: RouteObject[] = [
 ]
 const privateRoutes: RouteObject[] = [
   {
-    element: <MainPage />,
+    element: <MainPageContainer />,
     path: urlPaths.root,
   },
 ]
