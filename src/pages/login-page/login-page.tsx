@@ -1,21 +1,54 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Navigate } from 'react-router-dom'
 
 import { Button } from '@/components/button'
 import { Card } from '@/components/card'
 import { ControlledTextField } from '@/components/controlled-textField'
 import { Page } from '@/components/page'
+import { API_AUTH } from '@/service/api'
+import { setCookie } from '@/utils/cookie'
 import { LoginPageData, schemaLoginPageData } from '@/utils/validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './login-page.module.scss'
 
 export const LoginPage = () => {
+  const [isLogined, setIsLogined] = useState(false)
   const { control, handleSubmit } = useForm<LoginPageData>({
     resolver: zodResolver(schemaLoginPageData),
   })
+
   const signInHandler = handleSubmit((data: LoginPageData) => {
-    console.log(data)
+    fetch(API_AUTH, {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+      .then(res => {
+        return res.json()
+      })
+      .then(res => {
+        const data = res.data as { token: string }
+
+        setCookie('token', data.token, 365)
+
+        setIsLogined(true)
+      })
+    // .then(() => {
+    //   fetch(API_GET_TABLE, {
+    //     headers: {
+    //       'x-auth': getCookie('token'),
+    //     },
+    //   }).then(console.log)
+    // })
   })
+
+  if (isLogined) {
+    return <Navigate to={'/'} />
+  }
 
   return (
     <Page>
@@ -27,7 +60,7 @@ export const LoginPage = () => {
             classNameWrapper={s.textField}
             control={control}
             label={'Login'}
-            name={'login'}
+            name={'username'}
             placeholder={'Login'}
           />
           <ControlledTextField
