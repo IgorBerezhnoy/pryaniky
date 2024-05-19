@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { Page } from '@/components/page'
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/table'
+import { tableHeader } from '@/constatns/tableHeader'
 import { API_GET_TABLE, RootObResponseTypeTable, TableItem } from '@/service/api'
 import { getCookie } from '@/utils'
 
@@ -22,21 +24,26 @@ export const MainPage = () => {
 
   return (
     <Page>
-      {data.map(el => {
-        return (
-          <div key={el.id}>
-            <div>{el.companySigDate}</div>
-            <div>{el.companySignatureName}</div>
-            <div>{el.documentName}</div>
-            <div>{el.documentStatus}</div>
-            <div>{el.documentType}</div>
-            <div>{el.employeeNumber}</div>
-            <div>{el.employeeSigDate}</div>
-            <div>{el.employeeSignatureName}</div>
-            <div>____________________</div>
-          </div>
-        )
-      })}
+      <Table>
+        <TableHeader columns={tableHeader} />
+        <TableBody>
+          {data.map(el => {
+            return (
+              <TableRow key={el.id}>
+                <TableCell>{el.companySigDate}</TableCell>
+                <TableCell>{el.companySignatureName}</TableCell>
+                <TableCell>{el.documentName}</TableCell>
+                <TableCell>{el.documentStatus}</TableCell>
+                <TableCell>{el.documentType}</TableCell>
+                <TableCell>{el.employeeNumber}</TableCell>
+                <TableCell>{el.employeeSigDate}</TableCell>
+                <TableCell>{el.employeeSignatureName}</TableCell>
+                <TableCell>icons</TableCell>
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
     </Page>
   )
 }
