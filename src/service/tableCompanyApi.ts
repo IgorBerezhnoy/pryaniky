@@ -1,12 +1,27 @@
-import { API_BASE_URL, API_GET_TABLE } from '@/service/api'
+import { API_BASE_URL, API_CREATE_ITEM_IN_TABLE, API_GET_TABLE } from '@/service/api'
 import { ResponseTypeTable } from '@/service/types'
-import { getCookie } from '@/utils'
+import { CreateCompanyItemType, getCookie } from '@/utils'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const tableCompanyApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
   endpoints: builder => ({
+    createItemInTable: builder.mutation<void, CreateCompanyItemType>({
+      invalidatesTags: ['tableCompany'] as never,
+      query: data => {
+        return {
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth': getCookie('token'),
+          },
+          method: 'POST',
+          url: API_CREATE_ITEM_IN_TABLE,
+        }
+      },
+    }),
     getCompanyTable: builder.query<ResponseTypeTable, void>({
+      providesTags: ['tableCompany'] as never,
       query: () => {
         return {
           headers: {
@@ -19,7 +34,7 @@ export const tableCompanyApi = createApi({
       },
     }),
   }),
-  reducerPath: 'rickAndMortyApi',
+  reducerPath: 'tableCompanyApi',
 })
 
-export const { useGetCompanyTableQuery } = tableCompanyApi
+export const { useCreateItemInTableMutation, useGetCompanyTableQuery } = tableCompanyApi

@@ -9,14 +9,19 @@ export interface TextFieldProps
   classNameWrapper?: string
   errorMessage?: string
   label?: string
+  withBorder?: boolean
 }
 
 export const TextField = forwardRef<ElementRef<'input'>, TextFieldProps>(
-  ({ className, classNameWrapper, disabled, errorMessage, label, ...rest }, ref): JSX.Element => {
+  (
+    { className, classNameWrapper, disabled, errorMessage, label, withBorder, ...rest },
+    ref
+  ): JSX.Element => {
     return (
       <div
         className={clsx(
           s.wrapper,
+          withBorder && s.withBorder,
           disabled && s.disabled,
           errorMessage && s.error,
           classNameWrapper

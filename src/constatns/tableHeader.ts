@@ -12,3 +12,13 @@ export const tableHeader = [
   { key: 'employeeSignatureName', title: 'Название подписи сотрудника' },
   { key: 'icons', title: ' ' },
 ]
+export const tableHeaderCreateItem = [
+  { key: 'companySigDate', type: 'date' },
+  { key: 'companySignatureName' },
+  { key: 'documentName' },
+  { key: 'documentStatus' },
+  { key: 'documentType' },
+  { key: 'employeeNumber', type: 'number' },
+  { key: 'employeeSigDate', type: 'date' },
+  { key: 'employeeSignatureName' },
+] as const

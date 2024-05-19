@@ -9,3 +9,16 @@ export const schemaLoginPageData = z.object({
 })
 
 export type LoginPageData = z.infer<typeof schemaLoginPageData>
+
+export const schemaCreateCompanyItem = z.object({
+  companySigDate: z.string().date(),
+  companySignatureName: z.string(),
+  documentName: z.string(),
+  documentStatus: z.string(),
+  documentType: z.string(),
+  employeeNumber: z.string(),
+  employeeSigDate: z.string(),
+  employeeSignatureName: z.string(),
+})
+
+export type CreateCompanyItemType = z.infer<typeof schemaCreateCompanyItem>
