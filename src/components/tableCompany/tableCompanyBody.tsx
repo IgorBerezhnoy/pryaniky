@@ -17,9 +17,14 @@ export const TableCompanyBody = ({ items }: Props) => {
       {items.map(el => (
         <React.Fragment key={el.id}>
           {editMode !== el.id ? (
-            <TableCompanyRow {...el} deleteItem={deleteItem} id={el.id} />
+            <TableCompanyRow {...el} deleteItem={deleteItem} id={el.id} setEditMode={setEditMode} />
           ) : (
-            <TableCompanyRowEditMode {...el} deleteItem={deleteItem} id={el.id} />
+            <TableCompanyRowEditMode
+              {...el}
+              deleteItem={deleteItem}
+              id={el.id}
+              setEditMode={setEditMode}
+            />
           )}
         </React.Fragment>
       ))}

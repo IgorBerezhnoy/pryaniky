@@ -15,6 +15,7 @@ export const TableCompanyRow = ({
   employeeSigDate,
   employeeSignatureName,
   id,
+  setEditMode,
 }: Props) => {
   return (
     <TableRow>
@@ -28,8 +29,12 @@ export const TableCompanyRow = ({
       <TableCell className={s.inputCell}>{employeeSignatureName}</TableCell>
       <TableCell className={s.inputCell}>
         <div className={s.iconsWrapper}>
-          <EditIcon className={s.icon} />
-          <TrashIcon className={s.icon} onClick={() => deleteItem({ id })} />
+          <button className={s.iconButton} onClick={() => setEditMode(id)}>
+            <EditIcon className={s.icon} />
+          </button>
+          <button className={s.iconButton} onClick={() => deleteItem({ id })}>
+            <TrashIcon className={s.icon} />
+          </button>
         </div>
       </TableCell>
     </TableRow>
@@ -46,4 +51,5 @@ type Props = {
   employeeSigDate: string
   employeeSignatureName: string
   id: string
+  setEditMode: (id: string) => void
 }

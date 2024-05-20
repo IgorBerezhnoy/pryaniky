@@ -9,7 +9,7 @@ import { useCreateItemInTableMutation } from '@/service/tableCompanyApi'
 import { CreateCompanyItemType, schemaCreateCompanyItem } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import s from '@/pages/main-page/main-page.module.scss'
+import s from './addItemForm.module.scss'
 
 export const AddItemForm = memo(() => {
   const [createItem, {}] = useCreateItemInTableMutation()
@@ -44,7 +44,9 @@ export const AddItemForm = memo(() => {
               )
             })}
             <TableCell>
-              <Button variant={'secondary'}>+</Button>
+              <Button className={s.green} variant={'secondary'}>
+                +
+              </Button>
             </TableCell>
           </TableRow>
         </TableBody>

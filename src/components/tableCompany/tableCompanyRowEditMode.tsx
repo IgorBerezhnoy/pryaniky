@@ -1,13 +1,13 @@
 import { CheckIcon, CrossIcon } from '@/assets/icons'
 import { TableCell, TableRow } from '@/components/table'
 import { TextField } from '@/components/textField'
+import { clsx } from 'clsx'
 
 import s from './tableCompany.module.scss'
 
 export const TableCompanyRowEditMode = ({
   companySigDate,
   companySignatureName,
-  deleteItem,
   documentName,
   documentStatus,
   documentType,
@@ -15,37 +15,52 @@ export const TableCompanyRowEditMode = ({
   employeeSigDate,
   employeeSignatureName,
   id,
+  setEditMode,
 }: Props) => {
   return (
     <TableRow>
       <TableCell className={s.inputCell}>
-        <TextField defaultValue={companySigDate.slice(0, 10)} type={'date'} withBorder />
+        <TextField
+          className={s.textField}
+          defaultValue={companySigDate.slice(0, 10)}
+          type={'date'}
+          withBorder
+        />
       </TableCell>
       <TableCell className={s.inputCell}>
-        <TextField defaultValue={companySignatureName} withBorder />
+        <TextField className={s.textField} defaultValue={companySignatureName} withBorder />
       </TableCell>
       <TableCell className={s.inputCell}>
-        <TextField defaultValue={documentName} withBorder />
+        <TextField className={s.textField} defaultValue={documentName} withBorder />
       </TableCell>
       <TableCell className={s.inputCell}>
-        <TextField defaultValue={documentStatus} withBorder />
+        <TextField className={s.textField} defaultValue={documentStatus} withBorder />
       </TableCell>
       <TableCell className={s.inputCell}>
-        <TextField defaultValue={documentType} withBorder />
+        <TextField className={s.textField} defaultValue={documentType} withBorder />
       </TableCell>
       <TableCell className={s.inputCell}>
-        <TextField defaultValue={employeeNumber} withBorder />
+        <TextField className={s.textField} defaultValue={employeeNumber} withBorder />
       </TableCell>
       <TableCell className={s.inputCell}>
-        <TextField defaultValue={employeeSigDate.slice(0, 10)} type={'date'} withBorder />
+        <TextField
+          className={s.textField}
+          defaultValue={employeeSigDate.slice(0, 10)}
+          type={'date'}
+          withBorder
+        />
       </TableCell>
       <TableCell className={s.inputCell}>
-        <TextField defaultValue={employeeSignatureName} withBorder />
+        <TextField className={s.textField} defaultValue={employeeSignatureName} withBorder />
       </TableCell>
       <TableCell className={s.inputCell}>
         <div className={s.iconsWrapper}>
-          <CheckIcon className={s.icon} />
-          <CrossIcon className={s.icon} onClick={() => deleteItem({ id })} />
+          <button className={s.iconButton} onClick={() => console.log(id)}>
+            <CheckIcon className={clsx(s.icon, s.green)} />
+          </button>
+          <button className={s.iconButton}>
+            <CrossIcon className={clsx(s.icon, s.red)} onClick={() => setEditMode('')} />
+          </button>
         </div>
       </TableCell>
     </TableRow>
@@ -54,7 +69,6 @@ export const TableCompanyRowEditMode = ({
 type Props = {
   companySigDate: string
   companySignatureName: string
-  deleteItem: (data: { id: string }) => void
   documentName: string
   documentStatus: string
   documentType: string
@@ -62,4 +76,6 @@ type Props = {
   employeeSigDate: string
   employeeSignatureName: string
   id: string
+
+  setEditMode: (id: string) => void
 }
