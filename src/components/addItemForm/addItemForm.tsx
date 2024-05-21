@@ -34,6 +34,7 @@ export const AddItemForm = memo(() => {
               return (
                 <TableCell className={s.inputCell} key={index}>
                   <ControlledTextField
+                    className={s.textField}
                     control={control}
                     name={el.key}
                     placeholder={'Введите текст'}

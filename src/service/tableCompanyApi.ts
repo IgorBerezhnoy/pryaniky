@@ -3,8 +3,9 @@ import {
   API_CREATE_ITEM_IN_TABLE,
   API_DELETE_ITEM_IN_TABLE,
   API_GET_TABLE,
+  API_UPDATE_ITEM_IN_TABLE,
 } from '@/service/api'
-import { ResponseTypeTable } from '@/service/types'
+import { ResponseTypeTable, TableItemType } from '@/service/types'
 import { CreateCompanyItemType, getCookie } from '@/utils'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
@@ -33,7 +34,7 @@ export const tableCompanyApi = createApi({
             'Content-Type': 'application/json',
             'x-auth': getCookie('token'),
           },
-          method: 'DELETE',
+          method: 'POST',
           url: API_DELETE_ITEM_IN_TABLE + data.id,
         }
       },
@@ -51,6 +52,20 @@ export const tableCompanyApi = createApi({
         }
       },
     }),
+    updateItemInTable: builder.mutation<void, TableItemType>({
+      invalidatesTags: ['tableCompany'] as never,
+      query: data => {
+        return {
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth': getCookie('token'),
+          },
+          method: 'POST',
+          url: `${API_UPDATE_ITEM_IN_TABLE}${data.id}  `,
+        }
+      },
+    }),
   }),
   reducerPath: 'tableCompanyApi',
 })
@@ -59,4 +74,5 @@ export const {
   useCreateItemInTableMutation,
   useDeleteItemInTableMutation,
   useGetCompanyTableQuery,
+  useUpdateItemInTableMutation,
 } = tableCompanyApi

@@ -9,8 +9,8 @@ type ResponseTypeLoginData = {
   token: string
 }
 export type ResponseTypeLogin = ResponseTypeT<ResponseTypeLoginData>
-export type ResponseTypeTable = ResponseTypeT<TableItem[]>
-export type TableItem = {
+export type ResponseTypeTable = ResponseTypeT<TableItemType[]>
+export type TableItemType = {
   companySigDate: string
   companySignatureName: string
   documentName: string
