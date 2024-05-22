@@ -1,2 +1,2 @@
 export * from './login-page'
-export { LoginForm } from '@/components/loginForm/loginFormContainer'
+export * from './login-page-container'
