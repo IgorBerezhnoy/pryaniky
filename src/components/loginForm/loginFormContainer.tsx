@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
-import { LoginForm } from '@/components/loginForm/loginForm'
+import { LoginForm } from '@/components'
 import { selectAuthError, signInAsync } from '@/features/auth/authSlice'
 import { useAppDispatch } from '@/hooks/use-appDispatch'
 import { LoginPageData, schemaLoginPageData } from '@/utils'
@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 export const LoginFormContainer = memo(() => {
   const dispatch = useAppDispatch()
-  const erorr = useSelector(selectAuthError)
+  const authError = useSelector(selectAuthError)
   const { control, handleSubmit, setError } = useForm<LoginPageData>({
     resolver: zodResolver(schemaLoginPageData),
   })
@@ -20,9 +20,9 @@ export const LoginFormContainer = memo(() => {
     toast('🦄 Welcome', { position: 'top-center' })
   })
 
-  if (erorr) {
-    setError('username', { message: erorr })
-    setError('password', { message: erorr })
+  if (authError) {
+    setError('username', { message: authError })
+    setError('password', { message: authError })
   }
 
   return <LoginForm control={control} signInHandler={signInHandler} />
