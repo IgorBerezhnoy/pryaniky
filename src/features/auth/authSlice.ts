@@ -26,24 +26,35 @@ export const { setAuth, setError } = authSlice.actions
 export const signInAsync = createAsyncThunk(
   'user/signIn',
   async (data: LoginPageData, { dispatch }) => {
-    const response = await fetch(API_AUTH, {
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
-    const res = await response.json()
+    dispatch(setError(''))
 
-    setCookie('token', res.data.token, 365)
-    dispatch(setAuth(true))
+    try {
+      const response = await fetch(API_AUTH, {
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
+      const res = await response.json()
 
-    return res.data.token
+      setCookie('token', res.data.token, 365)
+      dispatch(setAuth(true))
+
+      if (res.error_code === 2004) {
+        dispatch(setError('Incorrect login or password'))
+      }
+
+      return res.data.token
+    } catch (e) {
+      dispatch(setError('Incorrect login or password'))
+    }
   }
 )
 
 export const selectAuth = (state: RootState) => state.auth
 export const selectAuthIsAuth = (state: RootState) => state.auth.isAuth
+export const selectAuthError = (state: RootState) => state.auth.error
 export default authSlice.reducer
 
 export type AuthState = {

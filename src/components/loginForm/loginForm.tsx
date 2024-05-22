@@ -1,47 +1,25 @@
-import { useForm } from 'react-hook-form'
+import { Control } from 'react-hook-form'
 
 import { Button } from '@/components/button'
 import { ControlledTextField } from '@/components/controlled-textField'
-import { signInAsync } from '@/features/auth/authSlice'
-import { useAppDispatch } from '@/hooks/use-appDispatch'
-import { LoginPageData, schemaLoginPageData } from '@/utils'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { password, username } from '@/components/loginForm/lib/constans'
 
-import s from '@/pages/login-page/login-page.module.scss'
+import s from './loginForm.module.scss'
 
-export const LoginForm = () => {
-  const dispatch = useAppDispatch()
-
-  const { control, handleSubmit } = useForm<LoginPageData>({
-    resolver: zodResolver(schemaLoginPageData),
-  })
-  const signInHandler = handleSubmit((data: LoginPageData) => {
-    dispatch(signInAsync(data))
-  })
-
+export const LoginForm = ({ control, signInHandler }: Props) => {
   return (
     <form className={s.form} onSubmit={signInHandler}>
       <h1 className={s.title}>Sign In</h1>
 
-      <ControlledTextField
-        classNameWrapper={s.textField}
-        control={control}
-        label={'Login'}
-        name={'username'}
-        placeholder={'Login'}
-      />
-      <ControlledTextField
-        autoComplete={'cc-csc'}
-        classNameWrapper={s.textField}
-        control={control}
-        label={'Password'}
-        name={'password'}
-        placeholder={'password'}
-        type={'password'}
-      />
+      <ControlledTextField classNameWrapper={s.textField} control={control} {...username} />
+      <ControlledTextField classNameWrapper={s.textField} control={control} {...password} />
       <Button className={s.button} fullWidth>
         Login
       </Button>
     </form>
   )
+}
+type Props = {
+  control: Control<{ password: string; username: string }>
+  signInHandler: () => void
 }

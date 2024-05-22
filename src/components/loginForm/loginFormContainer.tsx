@@ -1,0 +1,26 @@
+import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
+
+import { LoginForm } from '@/components/loginForm/loginForm'
+import { selectAuthError, signInAsync } from '@/features/auth/authSlice'
+import { useAppDispatch } from '@/hooks/use-appDispatch'
+import { LoginPageData, schemaLoginPageData } from '@/utils'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+export const LoginFormContainer = () => {
+  const dispatch = useAppDispatch()
+  const erorr = useSelector(selectAuthError)
+  const { control, handleSubmit, setError } = useForm<LoginPageData>({
+    resolver: zodResolver(schemaLoginPageData),
+  })
+  const signInHandler = handleSubmit((data: LoginPageData) => {
+    dispatch(signInAsync(data))
+  })
+
+  if (erorr) {
+    setError('username', { message: erorr })
+    setError('password', { message: erorr })
+  }
+
+  return <LoginForm control={control} signInHandler={signInHandler} />
+}
