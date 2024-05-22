@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { TableBody } from '@/components/table'
 import { TableCompanyRowEditMode } from '@/components/tableCompany/lib/editMode/tableCompanyRowEditMode'
@@ -9,8 +10,12 @@ import { TableItemType } from '@/service/types'
 import s from '@/components/tableCompany/tableCompany.module.scss'
 
 export const TableCompanyBody = ({ items }: Props) => {
-  const [deleteItem, {}] = useDeleteItemInTableMutation()
+  const [deleteItem, { error }] = useDeleteItemInTableMutation()
   const [editMode, setEditMode] = useState<string>('')
+
+  if (error) {
+    toast('Упс произошла ошибка', { position: 'bottom-left', type: 'error' })
+  }
 
   return (
     <TableBody className={s.tableBody}>

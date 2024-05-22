@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { toast } from 'react-toastify'
 
 import { EditModePropsType } from '@/components/tableCompany'
 import { useUpdateItemInTableMutation } from '@/service/tableCompanyApi'
@@ -40,7 +41,11 @@ export const useEitMode = ({
 
     updateItem(data).then(
       () => setEditMode(''),
-      () => setEditMode('')
+      () => {
+        toast('Упс произошла ошибка', { position: 'bottom-left', type: 'error' })
+
+        setEditMode('')
+      }
     )
   }
 
