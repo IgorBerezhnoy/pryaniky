@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Logo } from '@/assets/image/logo'
@@ -15,7 +16,7 @@ type Props = {
   logOutHandler?: () => void
 }
 
-export const MainHeader = ({ isAuth, isLoading, logOutHandler }: Props) => {
+export const MainHeader = memo(({ isAuth, isLoading, logOutHandler }: Props) => {
   return (
     <Header className={clsx(s.header)}>
       <div className={s.wrapper}>
@@ -29,4 +30,4 @@ export const MainHeader = ({ isAuth, isLoading, logOutHandler }: Props) => {
       {isLoading && <Liner className={s.liner} />}
     </Header>
   )
-}
+})

@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import { AddItemForm } from '@/components/addItemForm/addItemForm'
+import { AddItemFormContainer } from '@/components/addItemForm/addItemFormContainer'
 import { Loader } from '@/components/loader'
 import { Page } from '@/components/page'
 import { TableCompany } from '@/components/tableCompany/tableCompany'
@@ -12,7 +12,7 @@ export const MainPage = memo(({ data, isLoading }: Props) => {
   return (
     <Page>
       <h1 className={s.title}>Companies</h1>
-      <AddItemForm />
+      <AddItemFormContainer />
       {isLoading && <Loader />}
       {data && <TableCompany items={data.data} />}
     </Page>

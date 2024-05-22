@@ -1,49 +1,22 @@
 import { memo } from 'react'
-import { useForm } from 'react-hook-form'
+import { Control } from 'react-hook-form'
 
+import { AddItemFormTableRow } from '@/components/addItemForm/lib/addItemFormTableRow'
 import { Button } from '@/components/button'
-import { ControlledTextField } from '@/components/controlled-textField'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/table'
-import { tableHeader, tableHeaderCreateItem } from '@/constatns/tableHeader'
-import { useCreateItemInTableMutation } from '@/service/tableCompanyApi'
-import { CreateCompanyItemType, schemaCreateCompanyItem } from '@/utils'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { tableHeader } from '@/constatns/tableHeader'
+import { CreateCompanyItemType } from '@/utils'
 
 import s from './addItemForm.module.scss'
 
-export const AddItemForm = memo(() => {
-  const [createItem, {}] = useCreateItemInTableMutation()
-
-  const { control, handleSubmit } = useForm<CreateCompanyItemType>({
-    resolver: zodResolver(schemaCreateCompanyItem),
-  })
-  const onSubmit = handleSubmit((data: CreateCompanyItemType) => {
-    createItem(data)
-  })
-
+export const AddItemForm = memo(({ control, onSubmit }: Props) => {
   return (
     <form onSubmit={onSubmit}>
       <Table>
         <TableHeader columns={tableHeader} />
         <TableBody>
           <TableRow>
-            {tableHeaderCreateItem.map((el, index) => {
-              // @ts-ignore
-              const type = el.type || 'text'
-
-              return (
-                <TableCell className={s.inputCell} key={index}>
-                  <ControlledTextField
-                    className={s.textField}
-                    control={control}
-                    name={el.key}
-                    placeholder={'Введите текст'}
-                    type={type}
-                    withBorder
-                  />
-                </TableCell>
-              )
-            })}
+            <AddItemFormTableRow control={control} />
             <TableCell>
               <Button className={s.green} variant={'secondary'}>
                 +
@@ -55,3 +28,7 @@ export const AddItemForm = memo(() => {
     </form>
   )
 })
+type Props = {
+  control: Control<CreateCompanyItemType, any>
+  onSubmit: () => void
+}

@@ -1,3 +1,3 @@
 export * from './main-page'
-export { AddItemForm } from '@/components/addItemForm/addItemForm'
+export { AddItemFormContainer } from '@/components/addItemForm/addItemFormContainer'
 export { TableCompany } from '@/components/tableCompany/tableCompany'

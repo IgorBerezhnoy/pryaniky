@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import { MainHeader } from '@/components/header/mainHeader'
@@ -6,7 +7,7 @@ import { selectAuth, setAuth } from '@/features/auth/authSlice'
 import { useAppDispatch } from '@/hooks/use-appDispatch'
 import { deleteCookie } from '@/utils'
 
-export const MainHeaderContainer = () => {
+export const MainHeaderContainer = memo(() => {
   const dispatch = useAppDispatch()
   const isLoading = useSelector(selectAppLoading)
   const isAuth = useSelector(selectAuth).isAuth
@@ -17,4 +18,4 @@ export const MainHeaderContainer = () => {
   }
 
   return <MainHeader isAuth={isAuth} isLoading={isLoading} logOutHandler={logOutHandler} />
-}
+})
