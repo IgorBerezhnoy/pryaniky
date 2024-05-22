@@ -1,35 +1,12 @@
-import {
-  Navigate,
-  Outlet,
-  RouteObject,
-  RouterProvider,
-  createBrowserRouter,
-} from 'react-router-dom'
+import { Navigate, Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { MainHeaderContainer } from '@/components/header/mainHeaderContainer'
 import { setAuth } from '@/features/auth/authSlice'
 import { useAppDispatch } from '@/hooks/use-appDispatch'
-import { LoginPageContainer } from '@/pages/login-page/login-page-container'
-import { MainPageContainer } from '@/pages/main-page/main-page-container'
+import { Layout } from '@/router/layout'
+import { privateRoutes } from '@/router/privateRoutes'
+import { publicRouters } from '@/router/publicRouters'
 import { urlPaths } from '@/router/urlPaths'
 import { getCookie } from '@/utils'
-
-const publicRouters: RouteObject[] = [
-  {
-    element: <LoginPageContainer />,
-    path: urlPaths.login,
-  },
-  {
-    element: <h1>error</h1>,
-    path: urlPaths.error,
-  },
-]
-const privateRoutes: RouteObject[] = [
-  {
-    element: <MainPageContainer />,
-    path: urlPaths.root,
-  },
-]
 
 const router = createBrowserRouter([
   {
@@ -46,15 +23,6 @@ const router = createBrowserRouter([
 
 export const AppRouter = () => {
   return <RouterProvider router={router} />
-}
-
-function Layout() {
-  return (
-    <>
-      <MainHeaderContainer />
-      <Outlet />
-    </>
-  )
 }
 
 function PrivateAppRoutes() {

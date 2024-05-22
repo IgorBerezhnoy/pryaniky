@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Control } from 'react-hook-form'
 
 import { Button } from '@/components/button'
@@ -6,7 +7,7 @@ import { password, username } from '@/components/loginForm/lib/constans'
 
 import s from './loginForm.module.scss'
 
-export const LoginForm = ({ control, signInHandler }: Props) => {
+export const LoginForm = memo(({ control, signInHandler }: Props) => {
   return (
     <form className={s.form} onSubmit={signInHandler}>
       <h1 className={s.title}>Sign In</h1>
@@ -18,7 +19,7 @@ export const LoginForm = ({ control, signInHandler }: Props) => {
       </Button>
     </form>
   )
-}
+})
 type Props = {
   control: Control<{ password: string; username: string }>
   signInHandler: () => void

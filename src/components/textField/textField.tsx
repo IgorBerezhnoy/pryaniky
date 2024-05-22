@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, ElementRef, InputHTMLAttributes, JSX, forwardRef } from 'react'
+import { DetailedHTMLProps, ElementRef, InputHTMLAttributes, JSX, forwardRef, memo } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -12,25 +12,27 @@ export interface TextFieldProps
   withBorder?: boolean
 }
 
-export const TextField = forwardRef<ElementRef<'input'>, TextFieldProps>(
-  (
-    { className, classNameWrapper, disabled, errorMessage, label, withBorder, ...rest },
-    ref
-  ): JSX.Element => {
-    return (
-      <div
-        className={clsx(
-          s.wrapper,
-          withBorder && s.withBorder,
-          disabled && s.disabled,
-          errorMessage && s.error,
-          classNameWrapper
-        )}
-      >
-        {label && <label className={clsx(s.label, disabled && s.disabled)}>{label}</label>}
-        <input className={clsx(s.input, className)} disabled={disabled} {...rest} ref={ref} />
-        {errorMessage && <span className={s.errorMessage}>{errorMessage}</span>}
-      </div>
-    )
-  }
+export const TextField = memo(
+  forwardRef<ElementRef<'input'>, TextFieldProps>(
+    (
+      { className, classNameWrapper, disabled, errorMessage, label, withBorder, ...rest },
+      ref
+    ): JSX.Element => {
+      return (
+        <div
+          className={clsx(
+            s.wrapper,
+            withBorder && s.withBorder,
+            disabled && s.disabled,
+            errorMessage && s.error,
+            classNameWrapper
+          )}
+        >
+          {label && <label className={clsx(s.label, disabled && s.disabled)}>{label}</label>}
+          <input className={clsx(s.input, className)} disabled={disabled} {...rest} ref={ref} />
+          {errorMessage && <span className={s.errorMessage}>{errorMessage}</span>}
+        </div>
+      )
+    }
+  )
 )

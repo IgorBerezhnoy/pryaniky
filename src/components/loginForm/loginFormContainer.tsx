@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 
@@ -7,7 +8,7 @@ import { useAppDispatch } from '@/hooks/use-appDispatch'
 import { LoginPageData, schemaLoginPageData } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-export const LoginFormContainer = () => {
+export const LoginFormContainer = memo(() => {
   const dispatch = useAppDispatch()
   const erorr = useSelector(selectAuthError)
   const { control, handleSubmit, setError } = useForm<LoginPageData>({
@@ -23,4 +24,4 @@ export const LoginFormContainer = () => {
   }
 
   return <LoginForm control={control} signInHandler={signInHandler} />
-}
+})
